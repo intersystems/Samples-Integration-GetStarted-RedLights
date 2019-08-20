@@ -1,0 +1,4 @@
+SuperUser
+PASSWORD
+do ##class(%SYSTEM.OBJ).Load("/home/project/shared/Samples-Integration-GetStarted-RedLights/Setup/CustomCensusComponents.xml","cdk")
+halt

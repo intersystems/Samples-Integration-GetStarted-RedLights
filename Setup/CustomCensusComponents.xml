@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Export generator="IRIS" version="26" zv="IRIS for UNIX (Ubuntu Server LTS for x86-64 Containers) 2019.3 (Build 301U)" ts="2019-08-14 18:24:13">
+<Class name="Demo.GeoRequest">
+<Super>%Persistent,Ens.Util.MessageBodyMethods</Super>
+<TimeChanged>65235,22439.90564</TimeChanged>
+<TimeCreated>65233,79673.823523</TimeCreated>
+
+<Property name="Longitude">
+<Type>%String</Type>
+</Property>
+
+<Property name="Latitude">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DataLocation>^Demo.GeoRequestD</DataLocation>
+<DefaultData>GeoRequestDefaultData</DefaultData>
+<IdLocation>^Demo.GeoRequestD</IdLocation>
+<IndexLocation>^Demo.GeoRequestI</IndexLocation>
+<StreamLocation>^Demo.GeoRequestS</StreamLocation>
+<Data name="GeoRequestDefaultData">
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Longitude</Value>
+</Value>
+<Value name="3">
+<Value>Latitude</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="Demo.GeoResponse">
+<Super>%Persistent,Ens.Util.MessageBodyMethods</Super>
+<TimeChanged>65235,19718.184658</TimeChanged>
+<TimeCreated>65235,17887.786279</TimeCreated>
+
+<Property name="State">
+<Type>%String</Type>
+</Property>
+
+<Property name="County">
+<Type>%String</Type>
+</Property>
+
+<Property name="Tract">
+<Type>%String</Type>
+</Property>
+
+<Property name="BlockGroup">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DataLocation>^Demo.GeoResponseD</DataLocation>
+<DefaultData>GeoResponseDefaultData</DefaultData>
+<IdLocation>^Demo.GeoResponseD</IdLocation>
+<IndexLocation>^Demo.GeoResponseI</IndexLocation>
+<StreamLocation>^Demo.GeoResponseS</StreamLocation>
+<Data name="GeoResponseDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>State</Value>
+</Value>
+<Value name="3">
+<Value>County</Value>
+</Value>
+<Value name="4">
+<Value>Tract</Value>
+</Value>
+<Value name="5">
+<Value>BlockGroup</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="Demo.PopulationRequest">
+<Super>%Persistent,Ens.Util.MessageBodyMethods</Super>
+<TimeChanged>65235,25104.891945</TimeChanged>
+<TimeCreated>65235,23325.811446</TimeCreated>
+
+<Property name="State">
+<Type>%String</Type>
+</Property>
+
+<Property name="County">
+<Type>%String</Type>
+</Property>
+
+<Property name="Tract">
+<Type>%String</Type>
+</Property>
+
+<Property name="BlockGroup">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DataLocation>^Demo.PopulationRequestD</DataLocation>
+<DefaultData>PopulationRequestDefaultData</DefaultData>
+<IdLocation>^Demo.PopulationRequestD</IdLocation>
+<IndexLocation>^Demo.PopulationRequestI</IndexLocation>
+<StreamLocation>^Demo.PopulationRequestS</StreamLocation>
+<Data name="PopulationRequestDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>State</Value>
+</Value>
+<Value name="3">
+<Value>County</Value>
+</Value>
+<Value name="4">
+<Value>Tract</Value>
+</Value>
+<Value name="5">
+<Value>BlockGroup</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="Demo.PopulationResponse">
+<Super>%Persistent,Ens.Util.MessageBodyMethods</Super>
+<TimeChanged>65235,25117.071982</TimeChanged>
+<TimeCreated>65235,23244.562495</TimeCreated>
+
+<Property name="Population">
+<Type>%String</Type>
+</Property>
+
+<Storage name="Default">
+<Type>%Storage.Persistent</Type>
+<DataLocation>^Demo.PopulationResponseD</DataLocation>
+<DefaultData>PopulationResponseDefaultData</DefaultData>
+<IdLocation>^Demo.PopulationResponseD</IdLocation>
+<IndexLocation>^Demo.PopulationResponseI</IndexLocation>
+<StreamLocation>^Demo.PopulationResponseS</StreamLocation>
+<Data name="PopulationResponseDefaultData">
+<Structure>listnode</Structure>
+<Subscript/>
+<Value name="1">
+<Value>%%CLASSNAME</Value>
+</Value>
+<Value name="2">
+<Value>Population</Value>
+</Value>
+</Data>
+</Storage>
+</Class>
+
+
+<Class name="Demo.ToCensusDS">
+<Super>EnsLib.REST.Operation</Super>
+<TimeChanged>65239,65725.538728</TimeChanged>
+<TimeCreated>65239,65725.538728</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Default>Queue</Default>
+</Parameter>
+
+<Method name="GetPopulationDensity">
+<FormalSpec>pRequest:Demo.PopulationRequest,*pResponse:Demo.PopulationResponse</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  try {
+      // Prepare and log the call
+      // Append the city to the URL configured for adapter
+      Set tURL= ..Adapter.URL _ "?get=NAME,B00001_001E&for=block%20group:" _ pRequest.BlockGroup _ "&in=state:" _ pRequest.State _
+      "&in=county:" _ pRequest.County _ "&in=tract:" _ pRequest.Tract _ "&key=6c59dddebe1002a5d5a9848e404e19e5f1614ce9"
+      
+      // Execute the call
+      $$$TRACE("Executing call")
+      Set tSC=..Adapter.GetURL(tURL,.tHttpResponse)
+      
+      // Return the response
+      If $$$ISERR(tSC)&&$IsObject(tHttpResponse)&&$IsObject(tHttpResponse.Data)&&tHttpResponse.Data.Size {
+         Set tSC=$$$ERROR($$$EnsErrGeneral,$$$StatusDisplayString(tSC)_":"_tHttpResponse.Data.Read())
+      }
+      Quit:$$$ISERR(tSC)
+      If $IsObject(tHttpResponse) {
+         // Instantiate the response object
+         set pResponse = ##class(Demo.PopulationResponse).%New()
+         // Convert JSON into a Proxy Object
+         set tSC = ..JSONStreamToObject(tHttpResponse.Data, .tProxy)
+         if (tSC){                                 
+            // Set response properties from the Proxy Object
+            set pResponse.Population = tProxy.GetAt(2).GetAt(2)
+            
+            $$$TRACE("Object created with " _ pResponse.Population)
+            
+           } 
+       }
+   }catch{
+       Set tSC=$$$SystemError
+   }
+   Quit tSC
+]]></Implementation>
+</Method>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+	<MapItem MessageType="Demo.PopulationRequest"> 
+		<Method>GetPopulationDensity</Method>
+	</MapItem>
+</MapItems>
+]]></Data>
+</XData>
+</Class>
+
+
+<Class name="Demo.ToCensusGeoServiceBO">
+<Super>EnsLib.REST.Operation</Super>
+<TimeChanged>65239,65134.614711</TimeChanged>
+<TimeCreated>65239,65134.614711</TimeCreated>
+
+<Parameter name="INVOCATION">
+<Default>Queue</Default>
+</Parameter>
+
+<Method name="GetGeoInfo">
+<FormalSpec>pRequest:Demo.GeoRequest,*pResponse:Demo.GeoResponse</FormalSpec>
+<ReturnType>%Status</ReturnType>
+<Implementation><![CDATA[
+  try {
+      // Prepare and log the call
+      // Append the city to the URL configured for adapter
+      Set tURL= ..Adapter.URL _ "query?geometry=" _ pRequest.Longitude _ "," _ pRequest.Latitude _ "&geometryType=esriGeometryPoint&outfields=*&returnGeometry=true&returnIdsOnly=false&inSR=4326&f=geojson" //..Adapter.URL_"?q="_pRequest.City
+      
+      // Execute the call
+      $$$TRACE("Executing call")
+      Set tSC=..Adapter.GetURL(tURL,.tHttpResponse)
+      
+      // Return the response
+      If $$$ISERR(tSC)&&$IsObject(tHttpResponse)&&$IsObject(tHttpResponse.Data)&&tHttpResponse.Data.Size {
+         Set tSC=$$$ERROR($$$EnsErrGeneral,$$$StatusDisplayString(tSC)_":"_tHttpResponse.Data.Read())
+      }
+      Quit:$$$ISERR(tSC)
+      If $IsObject(tHttpResponse) {
+         // Instantiate the response object
+         set pResponse = ##class(Demo.GeoResponse).%New()
+         // Convert JSON into a Proxy Object
+         set tSC = ..JSONStreamToObject(tHttpResponse.Data, .tProxy)
+         if (tSC){                                 
+            // Set response properties from the Proxy Object
+            set pResponse.State = tProxy.features.GetAt(1).properties.STATE
+            set pResponse.County = tProxy.features.GetAt(1).properties.COUNTY
+            set pResponse.Tract = tProxy.features.GetAt(1).properties.TRACT
+            set pResponse.BlockGroup = tProxy.features.GetAt(1).properties.BLKGRP
+            
+            $$$TRACE("Object created with " _ pResponse.State)
+            
+           } 
+       }
+   }catch{
+       Set tSC=$$$SystemError
+   }
+   Quit tSC
+]]></Implementation>
+</Method>
+
+<XData name="MessageMap">
+<Data><![CDATA[
+<MapItems>
+	<MapItem MessageType="Demo.GeoRequest"> 
+		<Method>GetGeoInfo</Method>
+	</MapItem>
+</MapItems>
+]]></Data>
+</XData>
+</Class>
+</Export>
