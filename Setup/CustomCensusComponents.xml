@@ -5,35 +5,13 @@
 <TimeChanged>65235,22439.90564</TimeChanged>
 <TimeCreated>65233,79673.823523</TimeCreated>
 
-<Property name="Longitude">
-<Type>%String</Type>
-</Property>
-
 <Property name="Latitude">
 <Type>%String</Type>
 </Property>
 
-<Storage name="Default">
-<Type>%Storage.Persistent</Type>
-<DataLocation>^Demo.GeoRequestD</DataLocation>
-<DefaultData>GeoRequestDefaultData</DefaultData>
-<IdLocation>^Demo.GeoRequestD</IdLocation>
-<IndexLocation>^Demo.GeoRequestI</IndexLocation>
-<StreamLocation>^Demo.GeoRequestS</StreamLocation>
-<Data name="GeoRequestDefaultData">
-<Value name="1">
-<Value>%%CLASSNAME</Value>
-</Value>
-<Value name="2">
-<Value>Longitude</Value>
-</Value>
-<Value name="3">
-<Value>Latitude</Value>
-</Value>
-</Data>
-</Storage>
-</Class>
-
+<Property name="Longitude">
+<Type>%String</Type>
+</Property>
 
 <Class name="Demo.GeoResponse">
 <Super>%Persistent,Ens.Util.MessageBodyMethods</Super>
