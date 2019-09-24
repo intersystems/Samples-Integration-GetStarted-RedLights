@@ -12,6 +12,7 @@
 <Property name="Longitude">
 <Type>%String</Type>
 </Property>
+</Class>
 
 <Class name="Demo.GeoResponse">
 <Super>%Persistent,Ens.Util.MessageBodyMethods</Super>
