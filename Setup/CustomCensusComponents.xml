@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Export generator="IRIS" version="26" zv="IRIS for UNIX (Ubuntu Server LTS for x86-64 Containers) 2019.3 (Build 301U)" ts="2019-08-14 18:24:13">
 <Class name="Demo.GeoRequest">
+<Description>This class holds information needed to request GeoJSON data from an API</Description>
 <Super>%Persistent,Ens.Util.MessageBodyMethods</Super>
 <TimeChanged>65235,22439.90564</TimeChanged>
 <TimeCreated>65233,79673.823523</TimeCreated>
@@ -15,6 +16,7 @@
 </Class>
 
 <Class name="Demo.GeoResponse">
+<Description>This class holds GeoJSON information retrieved from an API</Description>
 <Super>%Persistent,Ens.Util.MessageBodyMethods</Super>
 <TimeChanged>65235,19718.184658</TimeChanged>
 <TimeCreated>65235,17887.786279</TimeCreated>
@@ -35,37 +37,11 @@
 <Type>%String</Type>
 </Property>
 
-<Storage name="Default">
-<Type>%Storage.Persistent</Type>
-<DataLocation>^Demo.GeoResponseD</DataLocation>
-<DefaultData>GeoResponseDefaultData</DefaultData>
-<IdLocation>^Demo.GeoResponseD</IdLocation>
-<IndexLocation>^Demo.GeoResponseI</IndexLocation>
-<StreamLocation>^Demo.GeoResponseS</StreamLocation>
-<Data name="GeoResponseDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
-<Value name="1">
-<Value>%%CLASSNAME</Value>
-</Value>
-<Value name="2">
-<Value>State</Value>
-</Value>
-<Value name="3">
-<Value>County</Value>
-</Value>
-<Value name="4">
-<Value>Tract</Value>
-</Value>
-<Value name="5">
-<Value>BlockGroup</Value>
-</Value>
-</Data>
-</Storage>
 </Class>
 
 
 <Class name="Demo.PopulationRequest">
+<Description>This class holds information needed to request population density information from an API</Description>
 <Super>%Persistent,Ens.Util.MessageBodyMethods</Super>
 <TimeChanged>65235,25104.891945</TimeChanged>
 <TimeCreated>65235,23325.811446</TimeCreated>
@@ -86,37 +62,11 @@
 <Type>%String</Type>
 </Property>
 
-<Storage name="Default">
-<Type>%Storage.Persistent</Type>
-<DataLocation>^Demo.PopulationRequestD</DataLocation>
-<DefaultData>PopulationRequestDefaultData</DefaultData>
-<IdLocation>^Demo.PopulationRequestD</IdLocation>
-<IndexLocation>^Demo.PopulationRequestI</IndexLocation>
-<StreamLocation>^Demo.PopulationRequestS</StreamLocation>
-<Data name="PopulationRequestDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
-<Value name="1">
-<Value>%%CLASSNAME</Value>
-</Value>
-<Value name="2">
-<Value>State</Value>
-</Value>
-<Value name="3">
-<Value>County</Value>
-</Value>
-<Value name="4">
-<Value>Tract</Value>
-</Value>
-<Value name="5">
-<Value>BlockGroup</Value>
-</Value>
-</Data>
-</Storage>
 </Class>
 
 
 <Class name="Demo.PopulationResponse">
+<Description>This class holds population density information retrieved from an API</Description>
 <Super>%Persistent,Ens.Util.MessageBodyMethods</Super>
 <TimeChanged>65235,25117.071982</TimeChanged>
 <TimeCreated>65235,23244.562495</TimeCreated>
@@ -125,28 +75,11 @@
 <Type>%String</Type>
 </Property>
 
-<Storage name="Default">
-<Type>%Storage.Persistent</Type>
-<DataLocation>^Demo.PopulationResponseD</DataLocation>
-<DefaultData>PopulationResponseDefaultData</DefaultData>
-<IdLocation>^Demo.PopulationResponseD</IdLocation>
-<IndexLocation>^Demo.PopulationResponseI</IndexLocation>
-<StreamLocation>^Demo.PopulationResponseS</StreamLocation>
-<Data name="PopulationResponseDefaultData">
-<Structure>listnode</Structure>
-<Subscript/>
-<Value name="1">
-<Value>%%CLASSNAME</Value>
-</Value>
-<Value name="2">
-<Value>Population</Value>
-</Value>
-</Data>
-</Storage>
 </Class>
 
 
 <Class name="Demo.ToCensusDS">
+<Description>This business process manages the orchestration of sending and retrieving data from the US Census</Description>
 <Super>EnsLib.REST.Operation</Super>
 <TimeChanged>65239,65725.538728</TimeChanged>
 <TimeCreated>65239,65725.538728</TimeCreated>
@@ -156,6 +89,8 @@
 </Parameter>
 
 <Method name="GetPopulationDensity">
+<Description>
+Calls an external API to get the population density for a particular GeoJSON location.</Description>
 <FormalSpec>pRequest:Demo.PopulationRequest,*pResponse:Demo.PopulationResponse</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
@@ -207,6 +142,7 @@
 
 
 <Class name="Demo.ToCensusGeoServiceBO">
+<Description>This business operation manages sending and receiving GeoJSON data from an API, which is needed in other US Census queries</Description>
 <Super>EnsLib.REST.Operation</Super>
 <TimeChanged>65239,65134.614711</TimeChanged>
 <TimeCreated>65239,65134.614711</TimeCreated>
@@ -216,6 +152,8 @@
 </Parameter>
 
 <Method name="GetGeoInfo">
+<Description>
+Retrieves GeoJSON data from the USCensus using longitude and latitude.</Description>
 <FormalSpec>pRequest:Demo.GeoRequest,*pResponse:Demo.GeoResponse</FormalSpec>
 <ReturnType>%Status</ReturnType>
 <Implementation><![CDATA[
