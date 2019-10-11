@@ -97,19 +97,19 @@ Calls an external API to get the population density for a particular GeoJSON loc
   try {
       // Prepare and log the call
       // Append the city to the URL configured for adapter
-      Set tURL= ..Adapter.URL _ "?get=NAME,B00001_001E&for=block%20group:" _ pRequest.BlockGroup _ "&in=state:" _ pRequest.State _
+      set tURL= ..Adapter.URL _ "?get=NAME,B00001_001E&for=block%20group:" _ pRequest.BlockGroup _ "&in=state:" _ pRequest.State _
       "&in=county:" _ pRequest.County _ "&in=tract:" _ pRequest.Tract _ "&key=6c59dddebe1002a5d5a9848e404e19e5f1614ce9"
       
       // Execute the call
       $$$TRACE("Executing call")
-      Set tSC=..Adapter.GetURL(tURL,.tHttpResponse)
+      set tSC=..Adapter.GetURL(tURL,.tHttpResponse)
       
       // Return the response
-      If $$$ISERR(tSC)&&$IsObject(tHttpResponse)&&$IsObject(tHttpResponse.Data)&&tHttpResponse.Data.Size {
+      if $$$ISERR(tSC)&&$IsObject(tHttpResponse)&&$IsObject(tHttpResponse.Data)&&tHttpResponse.Data.Size {
          Set tSC=$$$ERROR($$$EnsErrGeneral,$$$StatusDisplayString(tSC)_":"_tHttpResponse.Data.Read())
       }
-      Quit:$$$ISERR(tSC)
-      If $IsObject(tHttpResponse) {
+      quit:$$$ISERR(tSC)
+      if $IsObject(tHttpResponse) {
          // Instantiate the response object
          set pResponse = ##class(Demo.PopulationResponse).%New()
          // Convert JSON into a Proxy Object
@@ -123,9 +123,9 @@ Calls an external API to get the population density for a particular GeoJSON loc
            } 
        }
    }catch{
-       Set tSC=$$$SystemError
+       set tSC=$$$SystemError
    }
-   Quit tSC
+   quit tSC
 ]]></Implementation>
 </Method>
 
@@ -160,18 +160,18 @@ Retrieves GeoJSON data from the USCensus using longitude and latitude.</Descript
   try {
       // Prepare and log the call
       // Append the city to the URL configured for adapter
-      Set tURL= ..Adapter.URL _ "query?geometry=" _ pRequest.Longitude _ "," _ pRequest.Latitude _ "&geometryType=esriGeometryPoint&outfields=*&returnGeometry=true&returnIdsOnly=false&inSR=4326&f=geojson" //..Adapter.URL_"?q="_pRequest.City
+      set tURL= ..Adapter.URL _ "query?geometry=" _ pRequest.Longitude _ "," _ pRequest.Latitude _ "&geometryType=esriGeometryPoint&outfields=*&returnGeometry=true&returnIdsOnly=false&inSR=4326&f=geojson" //..Adapter.URL_"?q="_pRequest.City
       
       // Execute the call
       $$$TRACE("Executing call")
-      Set tSC=..Adapter.GetURL(tURL,.tHttpResponse)
+      set tSC=..Adapter.GetURL(tURL,.tHttpResponse)
       
       // Return the response
-      If $$$ISERR(tSC)&&$IsObject(tHttpResponse)&&$IsObject(tHttpResponse.Data)&&tHttpResponse.Data.Size {
-         Set tSC=$$$ERROR($$$EnsErrGeneral,$$$StatusDisplayString(tSC)_":"_tHttpResponse.Data.Read())
+      if $$$ISERR(tSC)&&$IsObject(tHttpResponse)&&$IsObject(tHttpResponse.Data)&&tHttpResponse.Data.Size {
+         set tSC=$$$ERROR($$$EnsErrGeneral,$$$StatusDisplayString(tSC)_":"_tHttpResponse.Data.Read())
       }
-      Quit:$$$ISERR(tSC)
-      If $IsObject(tHttpResponse) {
+      quit:$$$ISERR(tSC)
+      if $IsObject(tHttpResponse) {
          // Instantiate the response object
          set pResponse = ##class(Demo.GeoResponse).%New()
          // Convert JSON into a Proxy Object
@@ -188,9 +188,9 @@ Retrieves GeoJSON data from the USCensus using longitude and latitude.</Descript
            } 
        }
    }catch{
-       Set tSC=$$$SystemError
+       set tSC=$$$SystemError
    }
-   Quit tSC
+   quit tSC
 ]]></Implementation>
 </Method>
 
