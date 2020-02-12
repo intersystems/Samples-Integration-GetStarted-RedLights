@@ -10,7 +10,9 @@ Method GetGeoInfo(pRequest As Demo.GeoRequest, Output pResponse As Demo.GeoRespo
   try {
       // Prepare and log the call
       // Append the city to the URL configured for adapter
-      set tURL= ..Adapter.URL _ "query?geometry=" _ pRequest.Longitude _ "," _ pRequest.Latitude _ "&geometryType=esriGeometryPoint&outfields=*&returnGeometry=true&returnIdsOnly=false&inSR=4326&f=geojson" //..Adapter.URL_"?q="_pRequest.City
+      set tURL= ..Adapter.URL 
+      _ "query?geometry=" _ pRequest.Longitude _ "," _ pRequest.Latitude 
+      _ "&geometryType=esriGeometryPoint&outfields=*&returnGeometry=true&returnIdsOnly=false&inSR=4326&f=geojson" 
       
       // Execute the call
       $$$TRACE("Executing call")

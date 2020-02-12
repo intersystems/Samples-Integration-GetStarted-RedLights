@@ -10,8 +10,12 @@ Method GetPopulationDensity(pRequest As Demo.PopulationRequest, Output pResponse
   try {
       // Prepare and log the call
       // Append the city to the URL configured for adapter
-      set tURL= ..Adapter.URL _ "?get=NAME,B00001_001E&for=block%20group:" _ pRequest.BlockGroup _ "&in=state:" _ pRequest.State _
-      "&in=county:" _ pRequest.County _ "&in=tract:" _ pRequest.Tract _ "&key=6c59dddebe1002a5d5a9848e404e19e5f1614ce9"
+      set tURL= ..Adapter.URL 
+        _ "?get=NAME,B00001_001E&for=block%20group:" _ pRequest.BlockGroup 
+        _ "&in=state:" _ pRequest.State 
+        _ "&in=county:" _ pRequest.County 
+        _ "&in=tract:" _ pRequest.Tract 
+        _ "&key=6c59dddebe1002a5d5a9848e404e19e5f1614ce9"
       
       // Execute the call
       $$$TRACE("Executing call")

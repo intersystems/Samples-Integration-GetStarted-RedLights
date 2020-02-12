@@ -1,5 +1,5 @@
 /// This class holds information needed to request population density information from an API
-Class Demo.PopulationRequest Extends (%Persistent, Ens.Util.MessageBodyMethods)
+Class Demo.PopulationRequest Extends (Ens.Request)
 {
 
 Property State As %String;
