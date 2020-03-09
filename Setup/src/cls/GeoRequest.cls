@@ -1,5 +1,5 @@
 /// This class holds information needed to request GeoJSON data from an API
-Class Demo.GeoRequest Extends (Ens.Request)
+Class Demo.GeoRequest Extends (%Persistent, Ens.Util.MessageBodyMethods)
 {
 
 Property Latitude As %String;

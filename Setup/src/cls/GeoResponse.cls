@@ -1,5 +1,5 @@
 /// This class holds GeoJSON information retrieved from an API
-Class Demo.GeoResponse Extends (Ens.Response)
+Class Demo.GeoResponse Extends (%Persistent, Ens.Util.MessageBodyMethods)
 {
 
 Property State As %String;
